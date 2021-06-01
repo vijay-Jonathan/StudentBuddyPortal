@@ -1,0 +1,15 @@
+body{
+    margin-bottom:500px;
+}
+#header{
+    background:linear-gradient(90deg,lightblue,orangered);
+    color:white;
+    padding:8px;
+}
+#header h2{
+    font-size:22px;
+}
+hr{
+    background-color:blue;
+    height:3px;
+}
