@@ -1,31 +1,17 @@
 from flask import Flask,render_template,flash,redirect,url_for,session,logging,request
 from flask_mail import Mail,Message
 from flask_mysqldb import MySQL
-# from wtforms import Form,StringField,TextAreaField,PasswordField,validators
-# from passlib.hash import sha256_crypt
 from functools import wraps
 from itsdangerous import URLSafeTimedSerializer,SignatureExpired
-# import os
-# from urllib.request import urlopen 
-# import urllib
-# import shutil
-# from bs4 import BeautifulSoup
-# import requests
 from flask import *
 import joblib
 
 # ======================
-# !pip install tensorflow
-# !pip install tensorflow_hub
-# !pip install gensim
-# import logging
-# logging.getLogger("tensorflow").setLevel(logging.WARNING)
+
 import tensorflow_hub as hub
 import tensorflow as tf
 
-# from gensim.test.utils import common_texts
 import joblib
-# from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 import pandas as pd
 
 model = hub.load("C:/Users/Vijay Jonathan/Downloads/Compressed/universal-sentence-encoder-large_5")
@@ -73,7 +59,6 @@ class reader:
 
 # ==================================================================================================
 import pandas as pd
-# import csv
 import re
 #from read import reader 
 # This class helps preprocessing steps like removing punctuations,abbreviations etc.
@@ -113,12 +98,8 @@ class remover:
 
 import pandas as pd
 import numpy as np
-# from gensim.models.doc2vec import Doc2Vec, TaggedDocument
-# from gensim.utils import simple_preprocess
-#from read import reader
-#from remove import remover
+
 import joblib
-# import gensim
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Get similar question number as the asked query
@@ -151,11 +132,9 @@ def get_accuracy(sims,y_test):
 
 # =====================================================================================
 def use(query):
-    # load the saved model
-    # model = hub.load("https://tfhub.dev/google/universal-sentence-encoder-large/5")
-    # model = hub.load("C:/Users/Vijay Jonathan/Documents/GitHub/StudentBuddyPortal/universal-sentence-encoder-large_5")
-    # reader object
+    
     read = reader()
+    
     # remover object
     Acc=0.8251
     remove = remover("Abbr.xlsx")
@@ -166,30 +145,8 @@ def use(query):
     for question in questions:
         temp.append(remove.preprocess(question,punct=True))
     questions = temp
-    # print(questions,answers)
-    # get embeddings for questions
+
     questions_embeds = np.array(model(questions))
-    # print(questions_embeds.shape)
-    #test file path
-    # test_file = "NEWAV3.xlsx"
-    # x_test,y_test = read.read_excel(test_file,test=True)
-    # temp = list()
-    # for x in x_test:
-    #     temp.append(remove.preprocess(x,punct=True))
-    # x_test = temp
-    # # print(x_test)
-    # test_embeds = np.array(model(x_test))
-    # sims = list()
-    # for test in test_embeds:
-    #     sims.append(get_sim([test],questions_embeds))
-    # acc = get_accuracy(sims,y_test)
-    # print("Accuracy = ", Acc*100)
-    # model.save('my_model.h1')
-
-    # joblib.dump(model,"use.pkl")
-    # tf.saved_model.save(model, "use.h1")
-
-    # query = input("Enter your query : ")
     
     query = remove.preprocess(query,punct=True)
     query_embeds = np.array(model([query]))
@@ -199,20 +156,6 @@ def use(query):
         r = answers[sims]
         # print(answers[sims])
         return r
-
-
-    # while True:
-    #     # take input query
-    #     query = input("Enter your query : ")
-    #     if query == "bye":
-    #         return
-    #     query = remove.preprocess(query,punct=True)
-    #     query_embeds = np.array(model([query]))
-    #     # generate similarity
-    #     sims = get_sim(query_embeds,questions_embeds)
-    #     if sims != -1 and type(sims)!=list:
-    #         print(answers[sims])
-
 # ================================================================================
 
 
@@ -309,19 +252,6 @@ def botpre():
 
     if request.method == 'POST':
         query = request.form['query']
-        # tot_arriers= request.form['tot_arriers']
-        # clrd_arriers = request.form['clrd_arriers']
-        # intern = request.form['interns']
-        # paidintern = request.form['Paid_intrn']
-        # project = request.form['Projects']
-        # articles = request.form['Articels']	
-        # dat  =[cgpa,tot_arriers,clrd_arriers,intern,paidintern,project,articles]
-        # intmap=map(int,dat)
-        # l=list(intmap)
-        # print(l)
-        # # print(dat)
-        # pp = placepred(l)
-        # op ="Click on this ink to open AUMS https://intranet.cb.amrita.edu/aums"
         op = use(query)
         print("-----------------",op)
     return render_template('bot.html',op=op)
