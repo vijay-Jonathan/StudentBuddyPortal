@@ -9,13 +9,17 @@
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/static/css/bootstrap.css">
     <link rel="stylesheet" href="/static/css/styles.css">
-    <title>Bootstrap</title>
+    <title>FAQ</title>
 </head>
 
 <body>
     <nav class="navbar navbar-dark bg-dark mb-5">
-        <a href="#" class="navbar-brand">Placement Predection</a>
+         <!-- <a href="/placement" class="navbar-brand">Placement Predection</a>
+        <a href="/feedback" class="navbar-brand">Feedback</a> -->
+        <a href="/chatbot" class="navbar-brand">FAQ Student Helper</a> 
+
     </nav>
+
     <div class="container">
         <form action="/bot" method="POST" class="bg-info p-3">
             <div class="form-group">
@@ -40,11 +44,14 @@
                 <input type="text" class="form-control" id="Articels" name="Articels" placeholder="Articles" autofocus>
             </div> -->
             <button type="submit" class="btn btn-success">Submit</button>
+            <div calss ="form-label">
+                <h3 class="form-check-label" style="text-align: center;"> <a href="#" class="navbar-brand"></a>{{op}}</h3>
+            </div>
         </form>
     </div>
-    <div calss ="form-label">
-        <h1 class="form-check-label">{{op}}</h1>
-    </div>
+        <!-- <div calss ="form-label">
+            <h3 class="form-check-label" style="text-align: center;">{{op}}</h3>
+        </div> -->
 
     <!-- <div class="container mt-5">
         <form action="" class="bg-dark p-3 w-50 text-white rounded m-auto" style="box-shadow:0 0 10px black">

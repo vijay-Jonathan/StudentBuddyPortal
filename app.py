@@ -9,7 +9,7 @@ import joblib
 # ======================
 
 import tensorflow_hub as hub
-import tensorflow as tf
+# import tensorflow as tf
 
 import joblib
 import pandas as pd
@@ -167,7 +167,7 @@ def use(query):
 
 
 
-import pickle
+# import pickle
 import numpy as np
 
 app=Flask(__name__)
@@ -176,7 +176,7 @@ app=Flask(__name__)
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='root'
 app.config['MYSQL_PASSWORD']=''
-app.config['MYSQL_DB']='chatbot'
+app.config['MYSQL_DB']='test'
 app.config['MYSQL_CURSORCLASS']='DictCursor'
 
 app.config.from_pyfile('config.cfg')
@@ -269,9 +269,11 @@ def submit_feedback():
         cur.execute("INSERT INTO feedback(name,email,rollno,platform,message) VALUES(%s,%s,%s,%s,%s)",(name,email,rollno,platfrom,message))
         mysql.connection.commit()
         cur.close()
+        k= "Thank you for submiting your feedback"
+
         flash("Thank you for submiting your feedback")
         
-    return render_template('feedback.html')
+    return render_template('feedback.html',k=k)
 
 
 
